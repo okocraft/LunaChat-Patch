@@ -1,0 +1,13 @@
+diff --git a/src/main/java/com/github/ucchyocean/lc3/LunaChatBungee.java b/src/main/java/com/github/ucchyocean/lc3/LunaChatBungee.java
+index f8f3f2c..8dd351f 100644
+--- a/src/main/java/com/github/ucchyocean/lc3/LunaChatBungee.java
++++ b/src/main/java/com/github/ucchyocean/lc3/LunaChatBungee.java
+@@ -99,7 +99,7 @@ public class LunaChatBungee extends Plugin implements PluginInterface {
+         getProxy().getPluginManager().registerCommand(this,
+                 new LunaChatCommandBungee("lunachat", "", "lc", "ch"));
+         getProxy().getPluginManager().registerCommand(this,
+-                new MessageCommandBungee("tell", "", "msg", "message", "m", "t", "w"));
++                new MessageCommandBungee("tell", "", "msg", "message", "t", "w"));
+         getProxy().getPluginManager().registerCommand(this,
+                 new ReplyCommandBungee("reply", "", "r"));
+         getProxy().getPluginManager().registerCommand(this,
