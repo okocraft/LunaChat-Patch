@@ -3,6 +3,15 @@ SCRIPT_DIR="$(
   pwd
 )"
 
+LOGS_DIR="$SCRIPT_DIR"/logs
+
+if [ ! -e "$LOGS_DIR" ]; then
+  mkdir -p "$LOGS_DIR"
+  echo "Directory created: " "$LOGS_DIR"
+fi
+
+exec 1> >(tee -a "$LOGS_DIR"/clean-"$(date "+%s")".log)
+
 echo "Current directory: " "$SCRIPT_DIR"
 
 WORK_DIR="$SCRIPT_DIR"/build
