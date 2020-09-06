@@ -1,0 +1,17 @@
+diff --git a/src/main/java/com/github/ucchyocean/lc3/util/Utility.java b/src/main/java/com/github/ucchyocean/lc3/util/Utility.java
+index f4b0d24..bd16a81 100644
+--- a/src/main/java/com/github/ucchyocean/lc3/util/Utility.java
++++ b/src/main/java/com/github/ucchyocean/lc3/util/Utility.java
+@@ -104,10 +104,10 @@ public class Utility {
+     private static String replaceWebColorCode(String source) {
+         return source
+                 .replaceAll(
+-                        "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
++                        "&#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+                         "\u00A7x\u00A7$1\u00A7$2\u00A7$3\u00A7$4\u00A7$5\u00A7$6")
+                 .replaceAll(
+-                        "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
++                        "&#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+                         "\u00A7x\u00A7$1\u00A7$1\u00A7$2\u00A7$2\u00A7$3\u00A7$3");
+     }
+ 
