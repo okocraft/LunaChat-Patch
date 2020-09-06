@@ -35,7 +35,7 @@ git clone https://github.com/ucchyocean/LunaChat
 cd "$LUNACHAT_DIR" || exit 1
 
 for patch in "$SCRIPT_DIR"/patches/*.patch; do
-  git apply "$patch"
+  git apply --3way "$patch"
   echo "Patch applied: " "$patch"
 done
 
