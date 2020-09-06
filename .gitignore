@@ -17,5 +17,9 @@ buildNumber.properties
 # submodules
 /LunaChat
 
-# works
+# build
+/build
+LunaChat.jar
+
+# work
 /work
