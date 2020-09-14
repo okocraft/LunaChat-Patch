@@ -1,0 +1,12 @@
+diff --git a/src/main/resources/plugin.yml b/src/main/resources/plugin.yml
+index 687a3af..1f3073a 100644
+--- a/src/main/resources/plugin.yml
++++ b/src/main/resources/plugin.yml
+@@ -4,6 +4,7 @@ version: ${project.version}
+ authors: [ucchy, YukiLeafX, LazyGon, tomo1560]
+ description: ${project.description}
+ softdepend: [Vault, dynmap, Multiverse-Core, mcMMO]
++api-version: "1.16"
+ 
+ commands:
+   lunachat:
