@@ -1,0 +1,58 @@
+diff --git a/src/main/java/com/github/ucchyocean/lc3/util/ClickableFormat.java b/src/main/java/com/github/ucchyocean/lc3/util/ClickableFormat.java
+index 10cf090..d769df8 100644
+--- a/src/main/java/com/github/ucchyocean/lc3/util/ClickableFormat.java
++++ b/src/main/java/com/github/ucchyocean/lc3/util/ClickableFormat.java
+@@ -33,12 +33,9 @@ import net.md_5.bungee.api.chat.TextComponent;
+ public class ClickableFormat {
+ 
+     private static final String JOIN_COMMAND_TEMPLATE = "/lunachat join %s";
+-    private static final String TELL_COMMAND_TEMPLATE = "/tell %s";
+ 
+     private static final String PLACEHOLDER_RUN_COMMAND =
+             "＜type=RUN_COMMAND text=\"%s\" hover=\"%s\" command=\"%s\"＞";
+-    private static final String PLACEHOLDER_SUGGEST_COMMAND =
+-            "＜type=SUGGEST_COMMAND text=\"%s\" hover=\"%s\" command=\"%s\"＞";
+     private static final String PLACEHOLDER_PATTERN =
+             "＜type=(SUGGEST_COMMAND|RUN_COMMAND) text=\"([^\"]*)\" hover=\"([^\"]*)\" command=\"([^\"]*)\"＞";
+ 
+@@ -99,11 +96,7 @@ public class ClickableFormat {
+                     String.format(JOIN_COMMAND_TEMPLATE, channel.getName())));
+             msg.replace("%color", channel.getColorCode());
+             if ( channel.getPrivateMessageTo() != null ) {
+-                msg.replace("%to", String.format(
+-                        PLACEHOLDER_SUGGEST_COMMAND,
+-                        channel.getPrivateMessageTo().getDisplayName(),
+-                        Messages.hoverPlayerName(channel.getPrivateMessageTo().getName()),
+-                        String.format(TELL_COMMAND_TEMPLATE, channel.getPrivateMessageTo().getName())));
++                msg.replace("%to", channel.getPrivateMessageTo().getDisplayName());
+                 msg.replace("%recieverserver", channel.getPrivateMessageTo().getServerName());
+             }
+         }
+@@ -118,24 +111,9 @@ public class ClickableFormat {
+         if ( member != null ) {
+ 
+             // ChannelMember関連のキーワード置き換え
+-            if ( withPlayerLink ) {
+-                String playerPMPlaceHolder = String.format(
+-                        PLACEHOLDER_SUGGEST_COMMAND,
+-                        member.getDisplayName(),
+-                        Messages.hoverPlayerName(member.getName()),
+-                        String.format(TELL_COMMAND_TEMPLATE, member.getName()));
+-                msg.replace("%displayname", playerPMPlaceHolder);
+-                msg.replace("%username", playerPMPlaceHolder);
+-                msg.replace("%player", String.format(
+-                        PLACEHOLDER_SUGGEST_COMMAND,
+-                        member.getName(),
+-                        Messages.hoverPlayerName(member.getName()),
+-                        String.format(TELL_COMMAND_TEMPLATE, member.getName())));
+-            } else {
+-                msg.replace("%displayname", member.getDisplayName());
+-                msg.replace("%username", member.getDisplayName());
+-                msg.replace("%player", member.getName());
+-            }
++            msg.replace("%displayname", member.getDisplayName());
++            msg.replace("%username", member.getDisplayName());
++            msg.replace("%player", member.getName());
+ 
+             if ( msg.contains("%prefix") || msg.contains("%suffix") ) {
+                 msg.replace("%prefix", member.getPrefix());
