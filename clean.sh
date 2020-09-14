@@ -14,7 +14,7 @@ exec 1> >(tee -a "$LOGS_DIR"/clean-"$(date "+%s")".log)
 
 echo "Current directory: " "$SCRIPT_DIR"
 
-WORK_DIR="$SCRIPT_DIR"/build
+WORK_DIR="$SCRIPT_DIR"/work
 
 if [ ! -e "$WORK_DIR" ]; then
   mkdir -p "$WORK_DIR"
