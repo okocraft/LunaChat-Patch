@@ -1,0 +1,18 @@
+diff --git a/src/main/java/com/github/ucchyocean/lc3/bridge/McMMOBridge.java b/src/main/java/com/github/ucchyocean/lc3/bridge/McMMOBridge.java
+index 6c8b663..7a4847d 100644
+--- a/src/main/java/com/github/ucchyocean/lc3/bridge/McMMOBridge.java
++++ b/src/main/java/com/github/ucchyocean/lc3/bridge/McMMOBridge.java
+@@ -39,10 +39,10 @@ public class McMMOBridge implements Listener {
+     public void onMcMMOPartyChatEvent(McMMOPartyChatEvent event) {
+ 
+         // mcMMOから、パーティのメンバーを取得する
+-        List<Player> recipients = PartyAPI.getOnlineMembers(event.getParty());
++        List<Player> recipients = event.getAuthorParty().getOnlineMembers();
+ 
+-        String message = event.getMessage();
+-        ChannelMember player = ChannelMember.getChannelMember(event.getSender());
++        String message = event.getRawMessage();
++        ChannelMember player = ChannelMember.getChannelMember(event.getAuthor().uuid());
+         LunaChatConfig config = LunaChat.getConfig();
+         LunaChatAPI api = LunaChat.getAPI();
+ 

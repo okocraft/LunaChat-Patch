@@ -1,5 +1,5 @@
 diff --git a/src/main/java/com/github/ucchyocean/lc3/util/Utility.java b/src/main/java/com/github/ucchyocean/lc3/util/Utility.java
-index f4b0d24..bd16a81 100644
+index e6b64d9..10b13b2 100644
 --- a/src/main/java/com/github/ucchyocean/lc3/util/Utility.java
 +++ b/src/main/java/com/github/ucchyocean/lc3/util/Utility.java
 @@ -104,10 +104,10 @@ public class Utility {
@@ -15,3 +15,22 @@ index f4b0d24..bd16a81 100644
                          "\u00A7x\u00A7$1\u00A7$1\u00A7$2\u00A7$2\u00A7$3\u00A7$3");
      }
  
+diff --git a/src/test/java/com/github/ucchyocean/lc3/util/UtilityTest.java b/src/test/java/com/github/ucchyocean/lc3/util/UtilityTest.java
+index 5447052..bd383b6 100644
+--- a/src/test/java/com/github/ucchyocean/lc3/util/UtilityTest.java
++++ b/src/test/java/com/github/ucchyocean/lc3/util/UtilityTest.java
+@@ -15,12 +15,12 @@ public class UtilityTest extends TestCase {
+ 
+     public void testColorCode() {
+ 
+-        String testee = "#FFEEDDtesuto#112233aiueo";
++        String testee = "&#FFEEDDtesuto&#112233aiueo";
+         System.out.println(Utility.replaceColorCode(testee));
+ 
+         assertTrue("§x§F§F§E§E§D§Dtesuto§x§1§1§2§2§3§3aiueo".equals(Utility.replaceColorCode(testee)));
+ 
+-        testee = "#FEDtesuto#123aiueo";
++        testee = "&#FEDtesuto&#123aiueo";
+         System.out.println(Utility.replaceColorCode(testee));
+ 
+         assertTrue("§x§F§F§E§E§D§Dtesuto§x§1§1§2§2§3§3aiueo".equals(Utility.replaceColorCode(testee)));
