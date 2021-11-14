@@ -1,0 +1,92 @@
+diff --git a/src/main/java/com/github/ucchyocean/lc3/LunaChatConfig.java b/src/main/java/com/github/ucchyocean/lc3/LunaChatConfig.java
+index 4fe7964..e39db2b 100644
+--- a/src/main/java/com/github/ucchyocean/lc3/LunaChatConfig.java
++++ b/src/main/java/com/github/ucchyocean/lc3/LunaChatConfig.java
+@@ -157,6 +157,8 @@ public class LunaChatConfig {
+     /** Bungeeパススルーモード */
+     private boolean bungeePassThroughMode;
+ 
++    private java.util.Set<String> bungeeCatcherEnabledServers;
++
+     /**
+      * コンストラクタ
+      * @param dataFolder コンフィグ格納フォルダ
+@@ -271,6 +273,8 @@ public class LunaChatConfig {
+         japanizeWait = config.getInt("japanizeWait", 1);
+ 
+         bungeePassThroughMode = config.getBoolean("bungeePassThroughMode", false);
++        List<String> temp = config.getStringList("bungeeCatcherEnabledServers");
++        bungeeCatcherEnabledServers = temp != null ? new java.util.HashSet<>(temp) : java.util.Collections.emptySet();
+ 
+         // globalチャンネルが、使用可能なチャンネル名かどうかを調べる
+         if ( globalChannel != null && !globalChannel.equals("") &&
+@@ -615,6 +619,15 @@ public class LunaChatConfig {
+         return bungeePassThroughMode;
+     }
+ 
++    /**
++     * BungeeCord でチャットを処理するべきサーバーのリストを返す。
++     *
++     * @return bungeeCatcherEnabledServers
++     */
++    public java.util.Set<String> getBungeeCatcherEnabledServers() {
++        return bungeeCatcherEnabledServers;
++    }
++
+     /**
+      * 指定された文字列から、対応するEventPriorityを返す。
+      * @param value 文字列
+diff --git a/src/main/java/com/github/ucchyocean/lc3/bungee/BungeeEventListener.java b/src/main/java/com/github/ucchyocean/lc3/bungee/BungeeEventListener.java
+index 9890657..5deb6f4 100644
+--- a/src/main/java/com/github/ucchyocean/lc3/bungee/BungeeEventListener.java
++++ b/src/main/java/com/github/ucchyocean/lc3/bungee/BungeeEventListener.java
+@@ -232,18 +232,21 @@ public class BungeeEventListener implements Listener {
+      */
+     private void processChatEvent(ChatEvent event) {
+ 
+-        // Bungeeパススルーモードなら何もしない
+-        if ( config.isBungeePassThroughMode() ) {
++        // プレイヤーの発言ではない場合は、そのまま無視する
++        if ( !(event.getSender() instanceof ProxiedPlayer ) ) { // okocraft - move up
+             return;
+         }
+ 
+-        // コマンド実行の場合は、そのまま無視する
+-        if ( event.isCommand() ) {
++        ProxiedPlayer player = (ProxiedPlayer) event.getSender();
++
++        // Bungeeパススルーモードなら何もしない
++        if ( config.isBungeePassThroughMode()
++                && !config.getBungeeCatcherEnabledServers().contains(player.getServer().getInfo().getName()) ) {
+             return;
+         }
+ 
+-        // プレイヤーの発言ではない場合は、そのまま無視する
+-        if ( !(event.getSender() instanceof ProxiedPlayer) ) {
++        // コマンド実行の場合は、そのまま無視する
++        if ( event.isCommand() ) {
+             return;
+         }
+ 
+diff --git a/src/main/resources/config.yml b/src/main/resources/config.yml
+index 1d208d3..e81a8c3 100644
+--- a/src/main/resources/config.yml
++++ b/src/main/resources/config.yml
+@@ -226,3 +226,6 @@ japanizePlayerDefault: true
+ # It is a mode to process after receiving it back.
+ # All spigot servers need to have LunaChat installed.
+ bungeePassThroughMode: false
++
++# Servers that should handle chats in BungeeCord
++bungeeCatcherEnabledServers: []
+diff --git a/src/main/resources/config_ja.yml b/src/main/resources/config_ja.yml
+index fa63823..3cc2321 100644
+--- a/src/main/resources/config_ja.yml
++++ b/src/main/resources/config_ja.yml
+@@ -235,3 +235,6 @@ japanizePlayerDefault: true
+ # 返送してもらってから処理を行うモードです。
+ # 配下のすべてのspigotサーバーにも、LunaChatの導入が必要です。
+ bungeePassThroughMode: false
++
++# BungeeCord でチャットを処理するべきサーバー
++bungeeCatcherEnabledServers: []
