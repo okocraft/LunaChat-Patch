@@ -4,6 +4,7 @@ version: ${project.version}
 authors: [ucchy, YukiLeafX, LazyGon, tomo1560]
 description: ${project.description}
 softdepend: [Vault, dynmap, Multiverse-Core, mcMMO]
+api-version: "1.16"
 
 commands:
   lunachat:
