@@ -226,3 +226,6 @@ japanizePlayerDefault: true
 # It is a mode to process after receiving it back.
 # All spigot servers need to have LunaChat installed.
 bungeePassThroughMode: false
+
+# Servers that should handle chats in BungeeCord
+bungeeCatcherEnabledServers: []

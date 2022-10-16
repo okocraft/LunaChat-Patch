@@ -232,8 +232,16 @@ public class BungeeEventListener implements Listener {
      */
     private void processChatEvent(ChatEvent event) {
 
+        // プレイヤーの発言ではない場合は、そのまま無視する
+        if ( !(event.getSender() instanceof ProxiedPlayer ) ) { // okocraft - move up
+            return;
+        }
+
+        ProxiedPlayer player = (ProxiedPlayer) event.getSender();
+
         // Bungeeパススルーモードなら何もしない
-        if ( config.isBungeePassThroughMode() ) {
+        if ( config.isBungeePassThroughMode()
+                && !config.getBungeeCatcherEnabledServers().contains(player.getServer().getInfo().getName()) ) {
             return;
         }
 

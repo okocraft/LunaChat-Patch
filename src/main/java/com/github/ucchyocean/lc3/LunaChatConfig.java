@@ -157,6 +157,8 @@ public class LunaChatConfig {
     /** Bungeeパススルーモード */
     private boolean bungeePassThroughMode;
 
+    private java.util.Set<String> bungeeCatcherEnabledServers;
+
     /**
      * コンストラクタ
      * @param dataFolder コンフィグ格納フォルダ
@@ -271,6 +273,8 @@ public class LunaChatConfig {
         japanizeWait = config.getInt("japanizeWait", 1);
 
         bungeePassThroughMode = config.getBoolean("bungeePassThroughMode", false);
+        List<String> temp = config.getStringList("bungeeCatcherEnabledServers");
+        bungeeCatcherEnabledServers = temp != null ? new java.util.HashSet<>(temp) : java.util.Collections.emptySet();
 
         // globalチャンネルが、使用可能なチャンネル名かどうかを調べる
         if ( globalChannel != null && !globalChannel.equals("") &&
@@ -613,6 +617,15 @@ public class LunaChatConfig {
      */
     public boolean isBungeePassThroughMode() {
         return bungeePassThroughMode;
+    }
+
+    /**
+     * BungeeCord でチャットを処理するべきサーバーのリストを返す。
+     *
+     * @return bungeeCatcherEnabledServers
+     */
+    public java.util.Set<String> getBungeeCatcherEnabledServers() {
+        return bungeeCatcherEnabledServers;
     }
 
     /**
