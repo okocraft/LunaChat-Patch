@@ -250,11 +250,6 @@ public class BungeeEventListener implements Listener {
             return;
         }
 
-        // プレイヤーの発言ではない場合は、そのまま無視する
-        if ( !(event.getSender() instanceof ProxiedPlayer) ) {
-            return;
-        }
-
         // 発言内容を非同期で処理する
         ProxyServer.getInstance().getScheduler().runAsync(LunaChatBungee.getInstance(), new Runnable() {
             public void run() {

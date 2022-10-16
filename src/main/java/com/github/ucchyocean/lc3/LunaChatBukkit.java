@@ -72,7 +72,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
 
         // Metrics
         Metrics metrics = new Metrics(this, 7936);
-        metrics.addCustomChart(new Metrics.DrilldownPie(
+        metrics.addCustomChart(new org.bstats.charts.DrilldownPie(
                 "minecraft_server_version", new Callable<Map<String, Map<String, Integer>>>() {
             public Map<String, Map<String, Integer>> call() throws Exception {
                 Map<String, Map<String, Integer>> map = new HashMap<>();
