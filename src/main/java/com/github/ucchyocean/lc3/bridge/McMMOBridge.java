@@ -39,10 +39,10 @@ public class McMMOBridge implements Listener {
     public void onMcMMOPartyChatEvent(McMMOPartyChatEvent event) {
 
         // mcMMOから、パーティのメンバーを取得する
-        List<Player> recipients = PartyAPI.getOnlineMembers(event.getParty());
+        List<Player> recipients = event.getAuthorParty().getOnlineMembers();
 
-        String message = event.getMessage();
-        ChannelMember player = ChannelMember.getChannelMember(event.getSender());
+        String message = event.getRawMessage();
+        ChannelMember player = ChannelMember.getChannelMember(event.getAuthor().uuid());
         LunaChatConfig config = LunaChat.getConfig();
         LunaChatAPI api = LunaChat.getAPI();
 
