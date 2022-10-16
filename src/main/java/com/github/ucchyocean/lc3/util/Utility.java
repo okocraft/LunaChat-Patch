@@ -104,10 +104,10 @@ public class Utility {
     private static String replaceWebColorCode(String source) {
         return source
                 .replaceAll(
-                        "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+                        "&#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
                         "\u00A7x\u00A7$1\u00A7$2\u00A7$3\u00A7$4\u00A7$5\u00A7$6")
                 .replaceAll(
-                        "#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
+                        "&#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])",
                         "\u00A7x\u00A7$1\u00A7$1\u00A7$2\u00A7$2\u00A7$3\u00A7$3");
     }
 

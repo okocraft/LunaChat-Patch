@@ -15,12 +15,12 @@ public class UtilityTest extends TestCase {
 
     public void testColorCode() {
 
-        String testee = "#FFEEDDtesuto#112233aiueo";
+        String testee = "&#FFEEDDtesuto&#112233aiueo";
         System.out.println(Utility.replaceColorCode(testee));
 
         assertTrue("§x§F§F§E§E§D§Dtesuto§x§1§1§2§2§3§3aiueo".equals(Utility.replaceColorCode(testee)));
 
-        testee = "#FEDtesuto#123aiueo";
+        testee = "&#FEDtesuto&#123aiueo";
         System.out.println(Utility.replaceColorCode(testee));
 
         assertTrue("§x§F§F§E§E§D§Dtesuto§x§1§1§2§2§3§3aiueo".equals(Utility.replaceColorCode(testee)));
