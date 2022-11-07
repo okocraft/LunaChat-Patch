@@ -49,14 +49,30 @@ public class ChannelMemberProxiedPlayer extends ChannelMemberBungee {
      * @param nameOrUuid 名前、または、"$" + UUID
      * @return ChannelMemberProxiedPlayer
      */
-    public static ChannelMemberProxiedPlayer getChannelMember(String nameOrUuid) {
+    public static ChannelMember getChannelMember(String nameOrUuid) { // okocraft - support offline player
         if ( nameOrUuid.startsWith("$") ) {
             return new ChannelMemberProxiedPlayer(UUID.fromString(nameOrUuid.substring(1)));
         } else {
             ProxiedPlayer player = ProxyServer.getInstance().getPlayer(nameOrUuid);
             if ( player != null ) return new ChannelMemberProxiedPlayer(player.getUniqueId());
         }
-        return null;
+        // okocraft start - support offline player (don't return null)
+        String strUuid = LunaChat.getUUIDCacheData().getUUIDFromName(nameOrUuid);
+
+        if (strUuid == null) {
+            return new ChannelMemberOther(nameOrUuid);
+        }
+
+        UUID uuid;
+
+        try {
+            uuid = UUID.fromString(strUuid);
+        } catch (IllegalArgumentException e) {
+            return new ChannelMemberOther(nameOrUuid);
+        }
+
+        return new ChannelMemberProxiedPlayer(uuid);
+        // okocraft end
     }
 
     /**
