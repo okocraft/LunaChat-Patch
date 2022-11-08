@@ -60,7 +60,16 @@ public class JapanizeConvertTask {
      * @return 処理を実行したかどうか（イベントでキャンセルされた場合はfalseになります）
      */
     public boolean runSync() {
+        // okocraft start - use improved Japanizer
+        Map<String, String> dictionary = new HashMap<>(LunaChat.getAPI().getAllDictionary());
 
+        if ( LunaChat.getConfig().isJapanizeIgnorePlayerName() ) {
+            LunaChat.getPlugin().getOnlinePlayerNames().forEach(playerName -> dictionary.put(playerName, playerName));
+        }
+
+        LunaChat.getPlugin().getOnlinePlayerNames().forEach(playerName -> dictionary.put(playerName, playerName));
+        String japanized = com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.japanize(org, channel.getJapanizeType(), dictionary);
+        /*
         // 変換対象外のキーワード
         HashMap<String, String> keywordMap = new HashMap<String, String>();
         ArrayList<String> keywords = new ArrayList<String>();
@@ -105,6 +114,7 @@ public class JapanizeConvertTask {
         for ( String key : keywordMap.keySet() ) {
             japanized = japanized.replace(key, keywordMap.get(key));
         }
+        */ // okocraft end
 
         // 変換後の文字列にNGワードが含まれている場合は、マスクする
         for ( Pattern pattern : LunaChat.getConfig().getNgwordCompiled() ) {
