@@ -5,6 +5,7 @@
  */
 package com.github.ucchyocean.lc3.japanize.okocraft;
 
+import com.github.ucchyocean.lc3.LunaChat;
 import com.github.ucchyocean.lc3.japanize.JapanizeType;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
 /**
@@ -28,34 +30,46 @@ public class Japanizer {
 
     public static String japanize(String original, JapanizeType type, Map<String, String> dictionary) {
         // 変換不要なら空文字列を返す
-        if ( type == JapanizeType.NONE || !isNeedToJapanize(original) ) {
+        if (type == JapanizeType.NONE || !isNeedToJapanize(original)) {
             return "";
         }
 
-        var temp = original;
+        var messageReference = new AtomicReference<>(original);
         var lockMap = new HashMap<String, String>();
         var counter = new AtomicInteger();
 
-        temp = URL_PATTERN.matcher(original).replaceAll(result -> {
-            var count = counter.decrementAndGet();
-            var lockKey = getLockKey(count);
-            lockMap.put(lockKey, result.group());
-            return lockKey;
-        });
+        messageReference.set(
+                URL_PATTERN.matcher(original).replaceAll(result -> {
+                    var lockKey = getLockKey(counter.decrementAndGet());
+                    lockMap.put(lockKey, result.group());
+                    return lockKey;
+                })
+        );
+
+        if (LunaChat.getPlugin() != null && LunaChat.getConfig().isJapanizeIgnorePlayerName()) {
+            LunaChat.getPlugin().getOnlinePlayerNameStream().forEach(name -> {
+                var str = messageReference.get();
+                if (str.contains(name)) {
+                    var lockKey = getLockKey(counter.decrementAndGet());
+                    lockMap.put(lockKey, name);
+                    messageReference.set(str.replace(name, lockKey));
+                }
+            });
+        }
 
         counter.set(0);
 
         for (var keywordEntry : dictionary.entrySet()) {
-            if (temp.contains(keywordEntry.getKey())) {
+            if (messageReference.get().contains(keywordEntry.getKey())) {
                 var count = counter.incrementAndGet();
                 var lockKey = getLockKey(count);
                 lockMap.put(lockKey, keywordEntry.getValue());
-                temp = temp.replace(keywordEntry.getKey(), lockKey);
+                messageReference.set(messageReference.get().replace(keywordEntry.getKey(), lockKey));
             }
         }
 
         // カナ変換
-        String japanized = YukiKanaConverter.convert(temp);
+        String japanized = YukiKanaConverter.convert(messageReference.get());
 
         // IME変換
         if (type == JapanizeType.GOOGLE_IME) {

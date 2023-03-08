@@ -61,14 +61,7 @@ public class JapanizeConvertTask {
      */
     public boolean runSync() {
         // okocraft start - use improved Japanizer
-        Map<String, String> dictionary = new HashMap<>(LunaChat.getAPI().getAllDictionary());
-
-        if ( LunaChat.getConfig().isJapanizeIgnorePlayerName() ) {
-            LunaChat.getPlugin().getOnlinePlayerNames().forEach(playerName -> dictionary.put(playerName, playerName));
-        }
-
-        LunaChat.getPlugin().getOnlinePlayerNames().forEach(playerName -> dictionary.put(playerName, playerName));
-        String japanized = com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.japanize(org, channel.getJapanizeType(), dictionary);
+        String japanized = com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.japanize(org, channel.getJapanizeType(), LunaChat.getAPI().getAllDictionary());
         /*
         // 変換対象外のキーワード
         HashMap<String, String> keywordMap = new HashMap<String, String>();

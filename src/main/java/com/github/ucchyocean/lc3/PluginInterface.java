@@ -50,6 +50,9 @@ public interface PluginInterface {
      * @return オンラインのプレイヤー名一覧
      */
     public Set<String> getOnlinePlayerNames();
+    // okocraft start - add name stream
+    java.util.stream.Stream<String> getOnlinePlayerNameStream();
+    // okocraft end
 
     /**
      * このプラグインのログを記録する

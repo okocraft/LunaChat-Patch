@@ -42,7 +42,7 @@ public class ChannelManager implements LunaChatAPI {
     private HashMap<String, String> defaultChannels;
     private HashMap<String, String> templates;
     private HashMap<String, Boolean> japanize;
-    private HashMap<String, String> dictionary;
+    private java.util.LinkedHashMap<String, String> dictionary; // okocraft - Ensure that longer words are replaced first
     private HashMap<String, List<ChannelMember>> hidelist;
 
     /**
@@ -112,10 +112,11 @@ public class ChannelManager implements LunaChatAPI {
 
         YamlConfig configDictionary = YamlConfig.load(fileDictionary);
 
-        dictionary = new HashMap<String, String>();
+        dictionary = new java.util.LinkedHashMap<>(); // okocraft - Ensure that longer words are replaced first
         for ( String key : configDictionary.getKeys(false) ) {
             dictionary.put(key, configDictionary.getString(key));
         }
+        sortDictionary(); // okocraft - Ensure that longer words are replaced first
 
         // hideリストのロード
         fileHidelist = new File(LunaChat.getDataFolder(), FILE_NAME_HIDELIST);
@@ -519,6 +520,7 @@ public class ChannelManager implements LunaChatAPI {
      */
     public void setDictionary(String key, String value) {
         dictionary.put(key, value);
+        sortDictionary(); // okocraft - Ensure that longer words are replaced first
         saveDictionary();
     }
 
@@ -528,6 +530,7 @@ public class ChannelManager implements LunaChatAPI {
      */
     public void removeDictionary(String key) {
         dictionary.remove(key);
+        sortDictionary(); // okocraft - Ensure that longer words are replaced first
         saveDictionary();
     }
 
@@ -662,4 +665,11 @@ public class ChannelManager implements LunaChatAPI {
             e.printStackTrace();
         }
     }
+    // okocraft start - Ensure that longer words are replaced first
+    private void sortDictionary() {
+        var snapshot = java.util.Map.copyOf(dictionary);
+        dictionary.clear();
+        snapshot.keySet().stream().sorted(java.util.Comparator.comparing(String::length).reversed()).forEach(key -> dictionary.put(key, snapshot.get(key))); // okocraft - Ensure that longer words are replaced first
+    }
+    // okocraft end
 }

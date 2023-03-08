@@ -203,6 +203,14 @@ public class LunaChatBungee extends Plugin implements PluginInterface {
         }
         return list;
     }
+    // okocraft start - add name stream
+    @Override
+    public java.util.stream.Stream<String> getOnlinePlayerNameStream() {
+        return ProxyServer.getInstance().getPlayers().stream()
+                .map(ProxiedPlayer::getName)
+                .sorted(java.util.Comparator.comparing(String::length).reversed());
+    }
+    // okocraft end
 
     /**
      * このプラグインのログを記録する

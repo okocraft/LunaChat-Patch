@@ -80,6 +80,12 @@ public class LunaChatStandalone implements PluginInterface {
     public Set<String> getOnlinePlayerNames() {
         return null;
     }
+    // okocraft start - add name stream
+    @Override
+    public java.util.stream.Stream<String> getOnlinePlayerNameStream() {
+        return java.util.stream.Stream.empty();
+    }
+    // okocraft end
 
     @Override
     public void log(Level level, String msg) {

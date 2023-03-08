@@ -9,10 +9,11 @@ import java.util.Map;
 public class JapanizerTest extends TestCase {
 
     public void testJapanize() {
-        var original = "https://example.com tesuto example.com test";
-        var dictionary = Map.of("test", "テスト");
+        // See https://github.com/ucchyocean/LunaChat/issues/231
+        var original = "https://example.com tesuto example.com test neititoneitio neitiotoneiti";
+        var dictionary = Map.of("test", "テスト", "neitio", "ネイティオ", "neiti", "ネイティ");
 
-        var expected = "https://example.com てすと example.com テスト";
+        var expected = "https://example.com てすと example.com テスト ネイティとネイティオ ネイティオとネイティ";
 
         assertEquals(expected, Japanizer.japanize(original, JapanizeType.KANA, dictionary));
 

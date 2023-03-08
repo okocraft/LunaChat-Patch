@@ -280,6 +280,15 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
         }
         return list;
     }
+    // okocraft start - add name stream
+    @Override
+    public java.util.stream.Stream<String> getOnlinePlayerNameStream() {
+        return Bukkit.getOnlinePlayers()
+                .stream()
+                .map(Player::getName)
+                .sorted(java.util.Comparator.comparing(String::length).reversed());
+    }
+    // okocraft end
 
     /**
      * このプラグインのログを記録する
