@@ -117,4 +117,10 @@ public class Japanizer {
         }
         return result.append("＞").toString();
     }
+
+    public static void sortDictionary(@NotNull Map<String, String> dictionary) {
+        var snapshot = java.util.Map.copyOf(dictionary);
+        dictionary.clear();
+        snapshot.keySet().stream().sorted(java.util.Comparator.comparing(String::length).reversed()).forEach(key -> dictionary.put(key, snapshot.get(key))); // okocraft - Ensure that longer words are replaced first
+    }
 }
