@@ -66,6 +66,11 @@ public class LunaChatMessageCommand {
      * @param message
      */
     protected void sendTellMessage(ChannelMember inviter, String invitedName, String message) {
+        // 入力された相手の名前の形式をチェックする
+        if (!invitedName.startsWith("$") && invitedName.length() > 16) {
+            inviter.sendMessage(Messages.errmsgCommand());
+            return;
+        }
 
         // 招待相手が存在するかどうかを確認する
         ChannelMember invited = ChannelMember.getChannelMember(invitedName);
