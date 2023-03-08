@@ -40,7 +40,7 @@ public class UtilityBukkit {
      */
     @SuppressWarnings("deprecation")
     public static OfflinePlayer getOfflinePlayer(String name) {
-        if (name == null || name.length() > 16) return null;
+        if (name == null || name.length() > 16) return null;  // okocraft - Ignore names longer than 16 characters
         OfflinePlayer player = Bukkit.getOfflinePlayer(name);
         if (player == null || (!player.hasPlayedBefore() && !player.isOnline()))
             return null;

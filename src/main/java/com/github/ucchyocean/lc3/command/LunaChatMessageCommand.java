@@ -67,7 +67,7 @@ public class LunaChatMessageCommand {
      */
     protected void sendTellMessage(ChannelMember inviter, String invitedName, String message) {
         // 入力された相手の名前の形式をチェックする
-        if (!invitedName.startsWith("$") && invitedName.length() > 16) {
+        if (!invitedName.startsWith("$") && invitedName.length() > 16) {  // okocraft - Ignore names longer than 16 characters
             inviter.sendMessage(Messages.errmsgCommand());
             return;
         }

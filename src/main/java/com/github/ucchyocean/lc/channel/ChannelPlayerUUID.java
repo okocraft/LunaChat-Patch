@@ -48,7 +48,7 @@ public class ChannelPlayerUUID extends ChannelPlayer {
         if ( player != null ) {
             return new ChannelPlayerUUID(player.getUniqueId());
         }
-        if (name.length() > 16) return null;
+        if (name.length() > 16) return null; // okocraft - Ignore names longer than 16 characters
         OfflinePlayer offline = Bukkit.getOfflinePlayer(name);
         if ( offline != null && offline.getUniqueId() != null ) {
             return new ChannelPlayerUUID(offline.getUniqueId());

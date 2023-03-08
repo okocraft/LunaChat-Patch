@@ -295,7 +295,7 @@ public class ChannelMemberPlayer extends ChannelMemberBukkit {
         if ( nameOrUuid.startsWith("$") ) {
             return new ChannelMemberPlayer(nameOrUuid.substring(1));
         } else {
-            if (nameOrUuid.length() > 16) return null;
+            if (nameOrUuid.length() > 16) return null;  // okocraft - Ignore names longer than 16 characters
             @SuppressWarnings("deprecation")
             OfflinePlayer op = Bukkit.getOfflinePlayer(nameOrUuid);
             if ( op == null ) return null;
