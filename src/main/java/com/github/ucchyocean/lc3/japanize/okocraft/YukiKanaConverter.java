@@ -13,7 +13,7 @@ import java.util.Map;
  * @author YukiLeafX
  * @see <a href="https://support.microsoft.com/ja-jp/help/883232">参考</a>
  */
-class YukiKanaConverter {
+public class YukiKanaConverter {
 
     private static final Map<String, String> REPLACEMENT_MAP;
     private static final int MAX_ROMAJI_LENGTH;
@@ -442,7 +442,7 @@ class YukiKanaConverter {
         return isJapaneseVowel(c) || c == 'n';
     }
 
-    static @NotNull String convert(String romaji) {
+    public static @NotNull String convert(String romaji) {
         if (romaji == null || romaji.isEmpty()) {
             return "";
         }

@@ -2,7 +2,7 @@ package com.github.ucchyocean.lc3.japanize;
 
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
@@ -352,7 +352,10 @@ public class YukiKanaConverter {
      * @since 2.8.10
      */
     private static boolean canStartFromSokuon(String romaji) {
-        return !StringUtils.startsWithAny(romaji, "a", "i", "u", "e", "o", "n");
+        // okocraft start - remove commons-lang3
+        char first = romaji.charAt(0);
+        return first == 'a' || first == 'i' || first == 'u' || first == 'e' || first == 'o';
+        // okocraft end
     }
 
     /**
@@ -363,7 +366,7 @@ public class YukiKanaConverter {
      * @since 2.8.10
      */
     public static String conv(String romaji) {
-        return StringUtils.replaceEach(romaji, ROMAJI_LIST, HIRAGANA_LIST);
+        return com.github.ucchyocean.lc3.japanize.okocraft.YukiKanaConverter.convert(romaji) /*StringUtils.replaceEach(romaji, ROMAJI_LIST, HIRAGANA_LIST)*/;  // okocraft - remove commons-lang3
     }
 
     /**
@@ -376,6 +379,6 @@ public class YukiKanaConverter {
     public static String fixBrackets(String text) {
         String[] full = new String[] { "（", "）" };
         String[] half = new String[] { "(", ")" };
-        return StringUtils.replaceEach(text, full, half);
+        return ""/* StringUtils.replaceEach(text, full, half)*/; // okocraft - remove commons-lang3
     }
 }
