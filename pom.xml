@@ -80,6 +80,7 @@
             </goals>
             <configuration>
               <relocations>
+                <!-- okocraft start - remove unnecessary relocations
                 <relocation>
                   <pattern>com.google.gson</pattern>
                   <shadedPattern>com.github.ucchyocean.lc.lib.com.google.gson</shadedPattern>
@@ -88,6 +89,7 @@
                   <pattern>org.apache.commons.lang3</pattern>
                   <shadedPattern>com.github.ucchyocean.lc.lib.org.apache.commons.lang3</shadedPattern>
                 </relocation>
+                -->
                 <relocation>
                   <pattern>org.jetbrains</pattern>
                   <shadedPattern>com.github.ucchyocean.lc.lib.org.jetbrains</shadedPattern>
