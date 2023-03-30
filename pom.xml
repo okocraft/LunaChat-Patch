@@ -152,9 +152,16 @@
       <name>sonatype repository</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </repository>
+    <!-- okocraft start - Folia -->
+    <repository>
+      <id>papermc</id>
+      <url>https://repo.papermc.io/repository/maven-public/</url>
+    </repository>
+    <!-- okocraft end -->
   </repositories>
 
   <dependencies>
+    <!-- okocraft start - Folia
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
@@ -162,6 +169,14 @@
       <optional>true</optional>
       <scope>provided</scope>
     </dependency>
+    -->
+    <dependency>
+      <groupId>dev.folia</groupId>
+      <artifactId>folia-api</artifactId>
+      <version>1.19.4-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- okocraft end -->
     <dependency>
       <groupId>net.md-5</groupId>
       <artifactId>bungeecord-api</artifactId>

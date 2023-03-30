@@ -41,6 +41,21 @@ import com.github.ucchyocean.lc3.member.ChannelMember;
  * @author ucchy
  */
 public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
+    // okocraft start - Folia
+    private static final boolean FOLIA;
+
+    static {
+        boolean isFolia;
+        try {
+            Bukkit.class.getDeclaredMethod("getAsyncScheduler");
+            isFolia = true;
+        } catch (NoSuchMethodException e) {
+            isFolia = false;
+        }
+
+        FOLIA = isFolia;
+    }
+    // okocraft end
 
     private static LunaChatBukkit instance;
 
@@ -52,7 +67,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
     private DynmapBridge dynmap;
     private MultiverseCoreBridge multiverse;
 
-    private BukkitTask expireCheckerTask;
+    private Runnable expireCheckerTask; // okocraft - Folia
     private LunaChatLogger normalChatLogger;
 
     private LunaChatCommand lunachatCommand;
@@ -131,8 +146,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
         lcjapanizeCommand = new LunaChatJapanizeCommand();
 
         // 期限チェッカータスクの起動
-        expireCheckerTask = Bukkit.getScheduler().runTaskTimerAsynchronously(
-                this, new ExpireCheckTask(), 100, 600);
+        expireCheckerTask = scheduleExpireCheckTask(); // okocraft - Folia
 
         // イベント実行クラスの登録
         LunaChat.setEventSender(new BukkitEventSender());
@@ -150,7 +164,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
 
         // 期限チェッカータスクの停止
         if ( expireCheckerTask != null ) {
-            expireCheckerTask.cancel();
+            expireCheckerTask.run(); // okocraft - Folia
         }
     }
 
@@ -317,8 +331,25 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
      */
     @Override
     public void runAsyncTask(Runnable task) {
-        Bukkit.getScheduler().runTaskAsynchronously(this, task);
+    // okocraft start - Folia
+        if (FOLIA) {
+            Bukkit.getAsyncScheduler().runNow(this, $ -> task.run());
+        } else {
+            Bukkit.getScheduler().runTaskAsynchronously(this, task);
+        }
     }
+
+    private Runnable scheduleExpireCheckTask() { // Runnable is to call #cancel
+        if (FOLIA) {
+            var task = new ExpireCheckTask();
+            var scheduled = Bukkit.getAsyncScheduler().runAtFixedRate(this, $ -> task.run(), 5, 30, java.util.concurrent.TimeUnit.SECONDS);
+            return scheduled::cancel;
+        } else {
+            var timer = Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ExpireCheckTask(), 100, 600);
+            return timer::cancel;
+        }
+    }
+    // okocraft end
 
     /**
      * プラグインメッセージを送信する
