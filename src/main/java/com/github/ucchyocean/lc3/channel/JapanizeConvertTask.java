@@ -61,7 +61,7 @@ public class JapanizeConvertTask {
      */
     public boolean runSync() {
         // okocraft start - use improved Japanizer
-        String japanized = com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.japanize(org, channel.getJapanizeType(), LunaChat.getAPI().getAllDictionary());
+        String japanized = com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.japanize(org, type, LunaChat.getAPI().getAllDictionary());
         /*
         // 変換対象外のキーワード
         HashMap<String, String> keywordMap = new HashMap<String, String>();
