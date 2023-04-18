@@ -448,8 +448,7 @@ public class YukiKanaConverter {
         }
 
         var resultBuilder = new StringBuilder();
-        var original = romaji.toLowerCase(Locale.ENGLISH);
-        int length = original.length();
+        int length = romaji.length();
 
         int startIndex = 0;
         int offset = 1;
@@ -458,14 +457,14 @@ public class YukiKanaConverter {
             int endIndex = startIndex + offset;
 
             if (length < endIndex) {
-                resultBuilder.append(original, startIndex, length);
+                resultBuilder.append(romaji, startIndex, length);
                 break;
             }
 
             String replacement = null;
 
             if (offset == 1) { // For single letters, vowels or non-alphabetic letters can be converted.
-                char c = original.charAt(startIndex);
+                char c = romaji.charAt(startIndex);
 
                 if (!isAlphabet(c) || isJapaneseVowel(c)) {
                     var searchStr = String.valueOf(c);
@@ -474,16 +473,16 @@ public class YukiKanaConverter {
             } else {
                 int lastIndex = endIndex - 1;
 
-                if (offset == 2 && original.charAt(startIndex) == 'n' && original.charAt(lastIndex) == '\'') { // for "n'"
+                if (offset == 2 && romaji.charAt(startIndex) == 'n' && romaji.charAt(lastIndex) == '\'') { // for "n'"
                     replacement = "ん";
-                } else if (isAlphabet(original.charAt(lastIndex))) {
-                    var searchStr = original.substring(startIndex, endIndex);
+                } else if (isAlphabet(romaji.charAt(lastIndex))) {
+                    var searchStr = romaji.substring(startIndex, endIndex);
                     replacement = REPLACEMENT_MAP.get(searchStr);
                 } else {
                     // If the last char is not an alphabet, it cannot be converted to kana.
                     // Add the first character in the conversion range to the result
                     // and begin processing again at the next index.
-                    char firstChar = original.charAt(startIndex);
+                    char firstChar = romaji.charAt(startIndex);
                     resultBuilder.append(firstChar == 'n' ? "ん" : firstChar); // n should convert to "ん"
                     startIndex++;
                     offset = 1;
@@ -502,7 +501,7 @@ public class YukiKanaConverter {
                 // or the conversion range exceeds the length of the original string,
                 // add the first character in the conversion range to the result and begin processing again at the next index.
                 if (MAX_ROMAJI_LENGTH < offset || length < startIndex + offset) {
-                    char firstChar = original.charAt(startIndex);
+                    char firstChar = romaji.charAt(startIndex);
                     resultBuilder.append(firstChar == 'n' ? "ん" : firstChar); // n should convert to "ん"
                     startIndex++;
                     offset = 1;
