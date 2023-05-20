@@ -262,10 +262,21 @@ public class ChannelManager implements LunaChatAPI {
     @Override
     public boolean isPlayerJapanize(String playerName) {
         if ( !japanize.containsKey(playerName) ) {
-            return LunaChat.getConfig().isJapanizePlayerDefault();
+            return isUsingJapanese(playerName) && LunaChat.getConfig().isJapanizePlayerDefault(); // okocraft - Set the default setting of japanize to false for those who do not use Japanese as a client language
         }
         return japanize.get(playerName);
     }
+    // okocraft start - Set the default setting of japanize to false for those who do not use Japanese as a client language
+    private boolean isUsingJapanese(String playerName) {
+        if (LunaChat.getMode() == LunaChatMode.BUKKIT) {
+            return com.github.ucchyocean.lc3.LunaChatBukkit.getInstance().isUsingJapanese(playerName);
+        } else if (LunaChat.getMode() == LunaChatMode.BUNGEE) {
+            return com.github.ucchyocean.lc3.LunaChatBungee.getInstance().isUsingJapanese(playerName);
+        } else {
+            return false;
+        }
+    }
+    // okocraft end
 
     /**
      * 指定したチャンネル名が存在するかどうかを返す

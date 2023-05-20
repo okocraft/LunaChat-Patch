@@ -358,4 +358,10 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
     public void sendPluginMessage(byte[] bytes) {
         getServer().sendPluginMessage(this, LunaChat.PMC_MESSAGE, bytes);
     }
+    // okocraft start - Set the default setting of japanize to false for those who do not use Japanese as a client language
+    public boolean isUsingJapanese(String playerName) {
+        Player player = getServer().getPlayer(playerName);
+        return player != null && player.locale().equals(java.util.Locale.JAPANESE);
+    }
+    // okocraft end
 }
