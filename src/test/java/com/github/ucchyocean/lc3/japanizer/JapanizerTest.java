@@ -1,7 +1,7 @@
 package com.github.ucchyocean.lc3.japanizer;
 
 import com.github.ucchyocean.lc3.japanize.JapanizeType;
-import com.github.ucchyocean.lc3.japanize.okocraft.Japanizer;
+import net.okocraft.lunachat.japanize.Japanizer;
 import junit.framework.TestCase;
 
 import java.util.LinkedHashMap;

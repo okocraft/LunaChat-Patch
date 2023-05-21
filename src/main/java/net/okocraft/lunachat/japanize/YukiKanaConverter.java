@@ -1,4 +1,4 @@
-package com.github.ucchyocean.lc3.japanize.okocraft;
+package net.okocraft.lunachat.japanize;
 
 import org.jetbrains.annotations.NotNull;
 

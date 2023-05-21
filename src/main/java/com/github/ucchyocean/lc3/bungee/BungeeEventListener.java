@@ -374,7 +374,7 @@ public class BungeeEventListener implements Listener {
             // Japanizeの付加
             if ( !skipJapanize ) {
 
-                String japanize = com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.japanize(Utility.stripColorCode(message), config.getJapanizeType(), LunaChat.getAPI().getAllDictionary()); // okocraft - use improved Japanizer
+                String japanize = net.okocraft.lunachat.japanize.Japanizer.japanize(Utility.stripColorCode(message), config.getJapanizeType(), LunaChat.getAPI().getAllDictionary()); // okocraft - use improved Japanizer
                 if ( japanize.length() > 0 ) {
 
                     // NGワードのマスク

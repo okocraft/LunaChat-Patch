@@ -116,7 +116,7 @@ public class ChannelManager implements LunaChatAPI {
         for ( String key : configDictionary.getKeys(false) ) {
             dictionary.put(key, configDictionary.getString(key));
         }
-        com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.sortDictionary(dictionary); // okocraft - Ensure that longer words are replaced first
+        net.okocraft.lunachat.japanize.Japanizer.sortDictionary(dictionary); // okocraft - Ensure that longer words are replaced first
 
         // hideリストのロード
         fileHidelist = new File(LunaChat.getDataFolder(), FILE_NAME_HIDELIST);
@@ -531,7 +531,7 @@ public class ChannelManager implements LunaChatAPI {
      */
     public void setDictionary(String key, String value) {
         dictionary.put(key, value);
-        com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.sortDictionary(dictionary); // okocraft - Ensure that longer words are replaced first
+        net.okocraft.lunachat.japanize.Japanizer.sortDictionary(dictionary); // okocraft - Ensure that longer words are replaced first
         saveDictionary();
     }
 
@@ -541,7 +541,7 @@ public class ChannelManager implements LunaChatAPI {
      */
     public void removeDictionary(String key) {
         dictionary.remove(key);
-        com.github.ucchyocean.lc3.japanize.okocraft.Japanizer.sortDictionary(dictionary); // okocraft - Ensure that longer words are replaced first
+        net.okocraft.lunachat.japanize.Japanizer.sortDictionary(dictionary); // okocraft - Ensure that longer words are replaced first
         saveDictionary();
     }
 

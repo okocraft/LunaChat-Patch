@@ -366,7 +366,7 @@ public class YukiKanaConverter {
      * @since 2.8.10
      */
     public static String conv(String romaji) {
-        return com.github.ucchyocean.lc3.japanize.okocraft.YukiKanaConverter.convert(romaji) /*StringUtils.replaceEach(romaji, ROMAJI_LIST, HIRAGANA_LIST)*/;  // okocraft - remove commons-lang3
+        return net.okocraft.lunachat.japanize.YukiKanaConverter.convert(romaji) /*StringUtils.replaceEach(romaji, ROMAJI_LIST, HIRAGANA_LIST)*/;  // okocraft - remove commons-lang3
     }
 
     /**

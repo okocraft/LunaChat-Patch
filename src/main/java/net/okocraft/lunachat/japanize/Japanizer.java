@@ -3,7 +3,7 @@
  * @license    LGPLv3
  * @copyright  Copyright ucchy 2014
  */
-package com.github.ucchyocean.lc3.japanize.okocraft;
+package net.okocraft.lunachat.japanize;
 
 import com.github.ucchyocean.lc3.LunaChat;
 import com.github.ucchyocean.lc3.japanize.JapanizeType;

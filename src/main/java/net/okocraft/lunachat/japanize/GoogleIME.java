@@ -1,4 +1,4 @@
-package com.github.ucchyocean.lc3.japanize.okocraft;
+package net.okocraft.lunachat.japanize;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
