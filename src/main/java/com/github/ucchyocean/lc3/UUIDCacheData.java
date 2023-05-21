@@ -38,14 +38,14 @@ public class UUIDCacheData {
         // this.dataFolder = dataFolder;
         this.dataFile = new File(dataFolder, FILE_NAME).toPath();
 
-        java.util.Map<String, String> loaded;
+        com.google.common.collect.BiMap<String, String> loaded;
         try {
             loaded = net.okocraft.lunachat.UUIDCacheFile.load(dataFile);
         } catch (IOException e) {
             e.printStackTrace();
-            loaded = java.util.Collections.emptyMap();
+            loaded = com.google.common.collect.HashBiMap.create();
         }
-        this.backing = com.google.common.collect.Maps.synchronizedBiMap(com.google.common.collect.HashBiMap.create(loaded));
+        this.backing = com.google.common.collect.Maps.synchronizedBiMap(loaded);
         // okocraft - end
     }
 

@@ -1,11 +1,13 @@
 package net.okocraft.lunachat;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -13,8 +15,8 @@ public final class UUIDCacheFile {
 
     private static final Pattern SPLITTER = Pattern.compile(": ", Pattern.LITERAL);
 
-    public static Map<String, String> load(Path filepath) throws IOException {
-        var result = new HashMap<String, String>();
+    public static BiMap<String, String> load(Path filepath) throws IOException {
+        var result = HashBiMap.<String, String>create();
         if (Files.isRegularFile(filepath)) {
             try (var lines = Files.lines(filepath)) {
                 lines.forEach(line -> processLine(line, result));
@@ -36,13 +38,13 @@ public final class UUIDCacheFile {
         }
     }
 
-    private static void processLine(String line, Map<String, String> output) {
+    private static void processLine(String line, BiMap<String, String> output) {
         var elements = SPLITTER.split(line);
 
         if (elements.length != 2) {
             return;
         }
 
-        output.put(elements[0], elements[1]);
+        output.forcePut(elements[0], elements[1]);
     }
 }
