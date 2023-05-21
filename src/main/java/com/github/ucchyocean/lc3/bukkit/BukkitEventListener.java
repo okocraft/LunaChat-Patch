@@ -117,7 +117,7 @@ public class BukkitEventListener implements Listener {
 
         // UUIDをキャッシュ
         LunaChat.getUUIDCacheData().put(player.getUniqueId().toString(), player.getName());
-        LunaChat.getUUIDCacheData().save();
+        LunaChat.runAsyncTask(LunaChat.getUUIDCacheData()::save); // okocraft - Run saving async
 
         // 強制参加チャンネル設定を確認し、参加させる
         forceJoinToForceJoinChannels(player);

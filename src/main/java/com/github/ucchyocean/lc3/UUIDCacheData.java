@@ -21,23 +21,38 @@ public class UUIDCacheData {
     private static final String FILE_NAME = "uuidcache.yml";
 
     // キャッシュデータ key=UUID文字列、value=プレイヤー名
-    private YamlConfig cache;
-
-    private File dataFolder;
-
+    // okocraft start - Rewrite UUIDCacheData
+    // private YamlConfig cache;
+    // private File dataFolder;
+    private final java.nio.file.Path dataFile;
+    private final com.google.common.collect.BiMap<String, String> backing;
+    private final java.util.concurrent.atomic.AtomicBoolean dirty = new java.util.concurrent.atomic.AtomicBoolean();
+    // okocraft end
     /**
      * コンストラクタ
      * @param dataFolder プラグインのデータ格納フォルダ
      */
     public UUIDCacheData(File dataFolder) {
-        cache = new YamlConfig();
-        this.dataFolder = dataFolder;
-        reload();
+        // okocraft start - Rewrite UUIDCacheData
+        // cache = new YamlConfig();
+        // this.dataFolder = dataFolder;
+        this.dataFile = new File(dataFolder, FILE_NAME).toPath();
+
+        java.util.Map<String, String> loaded;
+        try {
+            loaded = net.okocraft.lunachat.UUIDCacheFile.load(dataFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            loaded = java.util.Collections.emptyMap();
+        }
+        this.backing = com.google.common.collect.Maps.synchronizedBiMap(com.google.common.collect.HashBiMap.create(loaded));
+        // okocraft - end
     }
 
     /**
      * キャッシュデータを読み込む
      */
+    /* okocraft - Rewrite UUIDCacheData
     public void reload() {
         File file = new File(dataFolder, FILE_NAME);
         if ( !file.exists() ) {
@@ -52,17 +67,29 @@ public class UUIDCacheData {
         }
         cache = YamlConfig.load(file);
     }
+    */ // okocraft
 
     /**
      * キャッシュデータをファイルに保存する
      */
     public void save() {
+        /* okocraft - Rewrite UUIDCacheData
         File file = new File(dataFolder, FILE_NAME);
         try {
             cache.save(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // okocraft start - Rewrite UUIDCacheData
+        */
+        if (dirty.getAndSet(false)) {
+            try {
+                net.okocraft.lunachat.UUIDCacheFile.save(dataFile, java.util.Map.copyOf(backing));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // okocraft end
     }
 
     /**
@@ -71,7 +98,13 @@ public class UUIDCacheData {
      * @param name プレイヤー名
      */
     public void put(String uuid, String name) {
-        cache.set(uuid, name);
+        // okocraft start - Rewrite UUIDCacheData
+        var current = backing.get(uuid);
+        if (current == null || !current.equalsIgnoreCase(name)) {
+            backing.forcePut(uuid, name);
+            dirty.set(true);
+        }
+        // okocraft end
     }
 
     /**
@@ -80,7 +113,7 @@ public class UUIDCacheData {
      * @return プレイヤー名（キャッシュされていない場合はnullが返される）
      */
     public @Nullable String get(String uuid) {
-        return cache.getString(uuid);
+        return backing.get(uuid); // okocraft - Rewrite UUIDCacheData
     }
 
     /**
@@ -90,12 +123,16 @@ public class UUIDCacheData {
      */
     public @Nullable String getUUIDFromName(String name) {
         if ( name == null ) return null;
+        /* okocraft - Rewrite UUIDCacheData
         for ( String uuid : cache.getKeys(false) ) {
             String n = cache.getString(uuid);
             if ( name.equalsIgnoreCase(n) ) {
                 return uuid;
             }
         }
-        return null;
+        // okocraft start - Rewrite UUIDCacheData
+        */
+        return backing.inverse().get(name);
+        // okocraft end
     }
 }
