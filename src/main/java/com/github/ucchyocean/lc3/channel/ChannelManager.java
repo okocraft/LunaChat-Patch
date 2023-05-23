@@ -156,13 +156,14 @@ public class ChannelManager implements LunaChatAPI {
      * @return 保存したかどうか
      */
     private boolean saveDefaults() {
-
+        // okocraft start - Make file saving async
+        LunaChat.runAsyncTask(this::saveDefaults0);
+        return true;
+    }
+    private boolean saveDefaults0() {
+        // okocraft end
         try {
-            YamlConfig config = new YamlConfig();
-            for ( String key : defaultChannels.keySet() ) {
-                config.set(key, defaultChannels.get(key));
-            }
-            config.save(fileDefaults);
+            net.okocraft.lunachat.DataFiles.saveStringMap(fileDefaults.toPath(), java.util.Map.copyOf(defaultChannels)); // okocraft - Make file saving async
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,13 +176,14 @@ public class ChannelManager implements LunaChatAPI {
      * @return 保存したかどうか
      */
     private boolean saveTemplates() {
-
+        // okocraft start - Make file saving async
+        LunaChat.runAsyncTask(this::saveTemplates0);
+        return true;
+    }
+    private boolean saveTemplates0() {
+        // okocraft end
         try {
-            YamlConfig config = new YamlConfig();
-            for ( String key : templates.keySet() ) {
-                config.set(key, templates.get(key));
-            }
-            config.save(fileTemplates);
+            net.okocraft.lunachat.DataFiles.saveStringMap(fileTemplates.toPath(), java.util.Map.copyOf(templates)); // okocraft - Make file saving async
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -194,13 +196,14 @@ public class ChannelManager implements LunaChatAPI {
      * @return 保存したかどうか
      */
     private boolean saveJapanize() {
-
+        // okocraft start - Make file saving async
+        LunaChat.runAsyncTask(this::saveJapanize0);
+        return true;
+    }
+    private boolean saveJapanize0() {
+        // okocraft end
         try {
-            YamlConfig config = new YamlConfig();
-            for ( String key : japanize.keySet() ) {
-                config.set(key, japanize.get(key));
-            }
-            config.save(fileJapanize);
+            net.okocraft.lunachat.DataFiles.saveStringMap(fileJapanize.toPath(), com.google.common.collect.Maps.transformValues(java.util.Map.copyOf(japanize), bool -> Boolean.toString(bool))); // okocraft - Make file saving async
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -213,13 +216,14 @@ public class ChannelManager implements LunaChatAPI {
      * @return 保存したかどうか
      */
     private boolean saveDictionary() {
-
+        // okocraft start - Make file saving async
+        LunaChat.runAsyncTask(this::saveDictionary0);
+        return true;
+    }
+    private boolean saveDictionary0() {
+        // okocraft end
         try {
-            YamlConfig config = new YamlConfig();
-            for ( String key : dictionary.keySet() ) {
-                config.set(key, dictionary.get(key));
-            }
-            config.save(fileDictionary);
+            net.okocraft.lunachat.DataFiles.saveStringMap(fileDictionary.toPath(), java.util.Map.copyOf(dictionary)); // okocraft - Make file saving async
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -232,13 +236,18 @@ public class ChannelManager implements LunaChatAPI {
      * @return 保存したかどうか
      */
     private boolean saveHidelist() {
-
+        // okocraft start - Make file saving async
+        LunaChat.runAsyncTask(this::saveHidelist0);
+        return true;
+    }
+    private boolean saveHidelist0() {
+        // okocraft end
         try {
-            YamlConfig config = new YamlConfig();
-            for ( String key : hidelist.keySet() ) {
-                config.set(key, getIdList(hidelist.get(key)));
-            }
-            config.save(fileHidelist);
+            // okocraft start - Make file saving async
+            var data = new HashMap<String, List<String>>(hidelist.size(), 2.0f);
+            hidelist.forEach((key, value) -> data.put(key, getIdList(value)));
+            net.okocraft.lunachat.DataFiles.saveHideList(fileHidelist.toPath(), data);
+            // okocraft end
             return true;
         } catch (IOException e) {
             e.printStackTrace();

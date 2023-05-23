@@ -40,7 +40,7 @@ public class UUIDCacheData {
 
         com.google.common.collect.BiMap<String, String> loaded;
         try {
-            loaded = net.okocraft.lunachat.UUIDCacheFile.load(dataFile);
+            loaded = net.okocraft.lunachat.DataFiles.loadUUIDNameCache(dataFile);
         } catch (IOException e) {
             e.printStackTrace();
             loaded = com.google.common.collect.HashBiMap.create();
@@ -84,7 +84,7 @@ public class UUIDCacheData {
         */
         if (dirty.getAndSet(false)) {
             try {
-                net.okocraft.lunachat.UUIDCacheFile.save(dataFile, java.util.Map.copyOf(backing));
+                net.okocraft.lunachat.DataFiles.saveStringMap(dataFile, java.util.Map.copyOf(backing));
             } catch (IOException e) {
                 e.printStackTrace();
             }

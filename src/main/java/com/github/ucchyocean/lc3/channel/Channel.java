@@ -1209,6 +1209,12 @@ public abstract class Channel {
         for ( String key : data.keySet() ) {
             conf.set(key, data.get(key));
         }
+        // okocraft start - Make file saving async
+        if (true) {
+            LunaChat.runAsyncTask(() -> save(file, conf));
+            return true;
+        }
+        // okocraft end
         try {
             conf.save(file);
             return true;
@@ -1217,6 +1223,15 @@ public abstract class Channel {
             return false;
         }
     }
+    // okocraft start - Make file saving async
+    private synchronized void save(File file, YamlConfig data) {
+        try {
+            data.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // okocraft end
 
     /**
      * チャンネルの情報を保存したファイルを、削除する。
