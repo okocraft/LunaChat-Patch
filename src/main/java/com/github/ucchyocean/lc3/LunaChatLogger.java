@@ -70,7 +70,7 @@ public class LunaChatLogger {
                 msg = msg.replace(",", "，");
 
                 try ( OutputStreamWriter writer = new OutputStreamWriter(
-                        new FileOutputStream(file, true), "UTF-8"); ) {
+                        new FileOutputStream(file, true), java.nio.charset.StandardCharsets.UTF_8); ) { // okocraft - Use StandardCharsets for specifying UTF-8
 
                     String str = lformat.format(new Date()) + "," + msg + "," + player;
                     writer.write(str + "\r\n");
@@ -144,7 +144,7 @@ public class LunaChatLogger {
         if ( !file.exists() ) return data;
 
         try ( BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(file), "UTF-8")) ) {
+                new InputStreamReader(new FileInputStream(file), java.nio.charset.StandardCharsets.UTF_8)) ) { // okocraft - Use StandardCharsets for specifying UTF-8
 
             String line;
             while ( (line = reader.readLine()) != null ) {

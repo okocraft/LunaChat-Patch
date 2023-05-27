@@ -68,9 +68,10 @@ public class Utility {
 
                     } else {
 
-                        try ( BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8")) ) {
-
+                        // okocraft start - Use StandardCharsets for specifying UTF-8
+                        try ( BufferedReader reader = new BufferedReader(new InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8));
+                                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, java.nio.charset.StandardCharsets.UTF_8)) ) {
+                        // okocraft end
                             String line;
                             while ((line = reader.readLine()) != null) {
                                 writer.write(line);

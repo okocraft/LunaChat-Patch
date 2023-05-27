@@ -81,7 +81,7 @@ public class YamlConfig extends YamlSection {
         if ( !file.exists() || !file.isFile() || file.length() == 0 ) return new YamlConfig();
 
         // 読み込む
-        try ( InputStreamReader reader = new InputStreamReader(new FileInputStream(file), "UTF-8") ) {
+        try ( InputStreamReader reader = new InputStreamReader(new FileInputStream(file), java.nio.charset.StandardCharsets.UTF_8) ) { // okocraft - Use StandardCharsets for specifying UTF-8
             return load(reader);
         } catch (IOException e) {
             e.printStackTrace();
