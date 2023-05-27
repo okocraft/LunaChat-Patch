@@ -107,7 +107,7 @@ public class YamlConfig extends YamlSection {
     }
     // okocraft start - convert keys to String to prevent ClassCastException on #getKeys
     private static Map<String, Object> convertKeysToString(Map<?, ?> map) {
-        var result = new java.util.HashMap<String, Object>(map.size() + (int) (map.size() * 0.3));
+        var result = new java.util.HashMap<String, Object>(map.size() + (int) (map.size() * 0.35));
         map.forEach((key, value) -> result.put(String.valueOf(key), value));
         return result;
     }
