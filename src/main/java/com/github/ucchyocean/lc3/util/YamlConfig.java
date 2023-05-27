@@ -43,7 +43,7 @@ public class YamlConfig extends YamlSection {
             throw new IOException("Cannot load stream as yaml.");
         }
 
-        config.map = map;
+        config.map = convertKeysToString(map); // okocraft - convert keys to String to prevent ClassCastException on #getKeys
         return config;
     }
 
@@ -66,7 +66,7 @@ public class YamlConfig extends YamlSection {
             throw new IOException("Cannot load reader as yaml.");
         }
 
-        config.map = map;
+        config.map = convertKeysToString(map); // okocraft - convert keys to String to prevent ClassCastException on #getKeys
         return config;
     }
 
@@ -105,4 +105,11 @@ public class YamlConfig extends YamlSection {
             writer.write(data);
         }
     }
+    // okocraft start - convert keys to String to prevent ClassCastException on #getKeys
+    private static Map<String, Object> convertKeysToString(Map<?, ?> map) {
+        var result = new java.util.HashMap<String, Object>(map.size() + (int) (map.size() * 0.3));
+        map.forEach((key, value) -> result.put(String.valueOf(key), value));
+        return result;
+    }
+    // okocraft end
 }
