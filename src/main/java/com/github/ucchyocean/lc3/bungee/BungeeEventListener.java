@@ -200,6 +200,7 @@ public class BungeeEventListener implements Listener {
         if ( !event.getTag().equals(LunaChat.PMC_MESSAGE) ) {
             return;
         }
+        event.setCancelled(true); // okocraft - Cancels own plugin message
 
         // データをメッセージに復元する
         BukkitChatMessage msg = BukkitChatMessage.fromByteArray(event.getData());
