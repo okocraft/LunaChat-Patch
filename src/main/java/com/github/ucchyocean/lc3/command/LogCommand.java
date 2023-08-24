@@ -147,7 +147,7 @@ public class LogCommand extends LunaChatSubCommand {
             }
 
             // チャンネルのメンバーかどうかを確認する
-            if (!channel.getMembers().contains(sender)) {
+            if (!sender.hasPermission(PERMISSION_NODE + ".bypass-member-check") && !channel.getMembers().contains(sender)) { // okocraft - Add a permission to bypass member check
                 sender.sendMessage(Messages.errmsgNomember());
                 return true;
             }
