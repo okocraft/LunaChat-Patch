@@ -260,7 +260,7 @@ public class LunaChatBungee extends Plugin implements PluginInterface {
     // okocraft start - Set the default setting of japanize to false for those who do not use Japanese as a client language
     public boolean isUsingJapanese(String playerName) {
         ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
-        return player != null && player.getLocale().equals(java.util.Locale.JAPANESE);
+        return player != null && java.util.Locale.JAPANESE.equals(player.getLocale());
     }
     // okocraft end
 }
