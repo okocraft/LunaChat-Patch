@@ -39,6 +39,11 @@ public class LuckPermsBridge {
         return new LuckPermsBridge(LuckPermsProvider.get());
     }
 
+    public static LuckPermsBridge load() {
+        // ロードされているならLuckPermsBridgeのインスタンスを作成して返す
+        return new LuckPermsBridge(LuckPermsProvider.get());
+    }
+
     /**
      * プレイヤーのprefixを取得します。
      * @param uniqueId プレイヤーのUUID

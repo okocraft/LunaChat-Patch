@@ -103,6 +103,14 @@
                   <pattern>org.bstats</pattern>
                   <shadedPattern>com.github.ucchyocean.lc.lib.org.bstats</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>net.kyori.adventure.text.serializer.bungeecord</pattern>
+                  <shadedPattern>com.github.ucchyocean.lc.lib.adventure.bungeecord</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>net.md_5.bungee</pattern>
+                  <shadedPattern>com.github.ucchyocean.lc.lib.bungee</shadedPattern>
+                </relocation>
               </relocations>
             </configuration>
           </execution>
@@ -166,7 +174,7 @@
   </repositories>
 
   <dependencies>
-    <!-- okocraft start - Folia
+    <!-- okocraft start - Folia/Velocity
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
@@ -178,20 +186,61 @@
     <dependency>
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper-api</artifactId>
-      <version>1.20.1-R0.1-SNAPSHOT</version>
+      <version>1.21.4-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.velocitypowered</groupId>
+      <artifactId>velocity-api</artifactId>
+      <version>3.4.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.md-5</groupId>
+      <artifactId>bungeecord-chat</artifactId>
+      <version>1.21-R0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.code.gson</groupId>
+          <artifactId>gson</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-text-serializer-bungeecord</artifactId>
+      <version>4.3.4</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>net.kyori</groupId>
+          <artifactId>adventure-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>net.kyori</groupId>
+          <artifactId>adventure-text-serializer-legacy</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>net.kyori</groupId>
+          <artifactId>adventure-text-serializer-gson</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-text-serializer-legacy</artifactId>
+      <version>4.18.0</version>
       <scope>provided</scope>
     </dependency>
     <!-- okocraft end -->
     <dependency>
       <groupId>net.md-5</groupId>
       <artifactId>bungeecord-api</artifactId>
-      <version>1.19-R0.1-SNAPSHOT</version>
-      <optional>true</optional>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-chat</artifactId>
       <version>1.19-R0.1-SNAPSHOT</version>
       <optional>true</optional>
       <scope>provided</scope>

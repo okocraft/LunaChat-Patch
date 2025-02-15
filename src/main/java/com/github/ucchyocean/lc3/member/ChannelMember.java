@@ -132,6 +132,8 @@ public abstract class ChannelMember implements Comparable<ChannelMember> {
             return ChannelMemberPlayer.getChannelMember(nameOrUuid);
         } else if ( LunaChat.getMode() == LunaChatMode.BUNGEE ) {
             return ChannelMemberProxiedPlayer.getChannelMember(nameOrUuid);
+        } else if ( LunaChat.getMode() == LunaChatMode.VELOCITY ) {
+            return ChannelMemberVelocityPlayer.getChannelMember(nameOrUuid);
         }
         return null; // TODO standalone用のChannelMemberを返す
     }
@@ -149,6 +151,8 @@ public abstract class ChannelMember implements Comparable<ChannelMember> {
             return ChannelMemberBukkit.getChannelMemberBukkit(obj);
         } else if ( LunaChat.getMode() == LunaChatMode.BUNGEE ) {
             return ChannelMemberBungee.getChannelMemberBungee(obj);
+        } else if ( LunaChat.getMode() == LunaChatMode.VELOCITY ) {
+            return ChannelMemberVelocity.getChannelMemberVelocity(obj);
         }
         return null; // TODO standalone用のChannelMemberを返す
     }

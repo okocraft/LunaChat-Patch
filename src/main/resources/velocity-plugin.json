@@ -1,0 +1,16 @@
+{
+  "id": "lunachat",
+  "name": "LunaChat",
+  "version": "${project.version}",
+  "description": "${project.description}",
+  "authors": [
+    "Siroshun09"
+  ],
+  "dependencies": [
+    {
+      "id": "luckperms",
+      "optional": true
+    }
+  ],
+  "main": "com.github.ucchyocean.lc3.LunaChatVelocity"
+}

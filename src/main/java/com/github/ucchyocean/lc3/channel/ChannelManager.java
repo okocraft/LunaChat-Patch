@@ -281,6 +281,8 @@ public class ChannelManager implements LunaChatAPI {
             return com.github.ucchyocean.lc3.LunaChatBukkit.getInstance().isUsingJapanese(playerName);
         } else if (LunaChat.getMode() == LunaChatMode.BUNGEE) {
             return com.github.ucchyocean.lc3.LunaChatBungee.getInstance().isUsingJapanese(playerName);
+        } else if (LunaChat.getMode() == LunaChatMode.VELOCITY) {
+            return com.github.ucchyocean.lc3.LunaChatVelocity.getInstance().isUsingJapanese(playerName);
         } else {
             return false;
         }
@@ -433,6 +435,8 @@ public class ChannelManager implements LunaChatAPI {
             channel = new BukkitChannel(name);
         } else if ( LunaChat.getMode() == LunaChatMode.BUNGEE ) {
             channel = new BungeeChannel(name);
+        } else if ( LunaChat.getMode() == LunaChatMode.VELOCITY ) {
+            channel = new VelocityChannel(name);
         } else {
             channel = new StandaloneChannel(name);
         }
